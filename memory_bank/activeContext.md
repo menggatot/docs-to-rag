@@ -1,56 +1,42 @@
-# Active Context: Docs to RAG Processor
+# Active Context
 
-## Current Status
-Project is in initial development with core functionality implemented:
-- Basic MD/MDX processing
-- Image optimization and compression
-- Parallel processing
-- Progress tracking
-- Error handling
-- Vision model integration
+## Current Session Context
+[2024-02-19 00:41 UTC+7]
 
-## Recent Changes
-1. Renamed project to docs-to-rag
-2. Implemented vision model integration with gpt-4o-mini
-3. Enhanced image optimization with smart compression
-4. Updated image size limit to 20MB
-5. Added configurable vision model support
-6. Implemented base64 image encoding for API
-7. Added command-line vision model selection
+## Current Focus
+- Memory Bank initialization
+- System architecture documentation
+- Project structure organization
 
-## Active Decisions
-1. Image Processing
-   - Using PIL for smart image compression
-   - Size limit set to 20MB (API limit)
-   - JPEG format with quality-based compression
-   - Progressive compression strategy (quality reduction before resizing)
+## Active Components
+1. Documentation Processing
+   - MD/MDX file handling
+   - Content optimization
+   - Metadata management
 
-2. API Integration
-    - Vision model integration using gpt-4o-mini
-    - Support for base64 image encoding
-    - Token bucket rate limiting with configurable parameters
-    - Thread-safe concurrent API request handling
-    - Default to low-detail image processing
+2. Image Processing
+   - Size optimization
+   - Format conversion
+   - Vision API integration
 
-3. Performance
-   - Default to 4 parallel workers
-   - Memory-efficient file handling
-   - Progress tracking with tqdm
-   - Progressive image compression
+3. System Integration
+   - OpenAI API connectivity
+   - Parallel processing implementation
+   - Output generation
 
-## Next Steps
-1. Testing and Validation
-   - Test vision model integration
-   - Verify image compression quality
-   - Performance testing with large images
-   - Error handling verification
+## Open Questions
+1. What is the optimal chunk size for RAG processing?
+2. How should we handle complex MDX components?
+3. What are the best practices for image description generation?
+4. How can we optimize the parallel processing for different system capabilities?
 
-2. Feature Enhancement
-   - Support for additional vision models
-   - Fine-tune compression parameters
-   - Enhanced error reporting for API calls
+## Current Goals
+1. Complete core system documentation
+2. Establish clear processing patterns
+3. Define image handling best practices
+4. Document API integration patterns
 
-3. Documentation
-   - API documentation
-   - Vision model configuration
-   - Image optimization guidelines
+## Notes
+- System is in initial setup phase
+- Core functionality is defined
+- Need to document technical decisions and patterns

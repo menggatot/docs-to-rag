@@ -1,87 +1,62 @@
-# Product Context: Docs to RAG Processor
+# Product Context
 
-## Problem Statement
-Organizations need to prepare their documentation for use in modern AI-powered knowledge bases. This process involves:
-- Converting various documentation formats
-- Optimizing media assets
-- Maintaining metadata
-- Generating accurate image descriptions
-- Ensuring content integrity
-These tasks are time-consuming and error-prone when done manually.
+## Project Overview
+Docs to RAG Processor is a specialized Python utility designed to streamline the preparation of documentation for AI-powered knowledge bases. The tool focuses on processing Markdown (MD) and MDX files while handling images and metadata intelligently for optimal use in Retrieval-Augmented Generation (RAG) systems.
 
-## Solution
-Docs to RAG Processor automates the documentation preparation process by:
-1. Processing MD/MDX files systematically
-2. Smart optimization of embedded images
-   - Progressive compression
-   - Automatic size limit compliance
-   - Quality preservation
-3. AI-powered image analysis
-   - Automated image descriptions
-   - Vision model integration
-   - Configurable model selection
-4. Maintaining document structure and metadata
-5. Providing progress tracking and error reporting
+## Core Objectives
+1. Simplify documentation processing for RAG systems
+2. Optimize image handling and processing
+3. Maintain metadata integrity
+4. Provide efficient parallel processing
+5. Enable seamless OpenAI Vision API integration
 
-## User Experience Goals
-1. Simple Command-Line Interface
-   - Clear argument structure
-   - Intuitive parameter names
-   - Vision model configuration
-   - Helpful error messages
+## Technical Stack
+- Python 3.x based implementation
+- OpenAI API integration (Vision capabilities)
+- Parallel processing architecture
+- Image processing and optimization system
 
-2. Intelligent Image Handling
-   - Smart compression strategies
-   - Quality-first approach
-   - Automatic size optimization
-   - Vision model integration
+## Key Features
+- MD/MDX file processing
+- Intelligent image handling and optimization
+- Metadata preservation
+- Parallel processing capabilities
+- OpenAI Vision API integration
+- Comprehensive logging
 
-3. Progress Visibility
-   - Real-time processing status
-   - Detailed progress bars
-   - Clear completion summaries
-   - Image processing metrics
+## Constraints
+- Image size limit: 20MB (OpenAI API constraint)
+- Supported image formats: JPEG, PNG (input), JPEG (output)
+- Python 3.x environment requirement
+- OpenAI API key requirement
 
-4. Error Handling
-   - Graceful error management
-   - Clear error reporting
-   - Vision API error handling
-   - Detailed logging for troubleshooting
+## Memory Bank Structure
+The Memory Bank maintains the following core files:
 
-5. Performance
-   - Parallel processing for efficiency
-   - Smart image optimization
-   - Memory-efficient operations
-   - Rate-limited API calls
+1. **productContext.md** (this file)
+   - Project overview and core documentation
+   - Technical stack and constraints
+   - Memory Bank file structure
 
-## Target Users
-1. Documentation Teams
-   - Technical writers
-   - Documentation maintainers
-   - Content managers
+2. **activeContext.md**
+   - Current session state
+   - Active development focus
+   - Ongoing tasks and considerations
 
-2. AI/ML Teams
-   - RAG system developers
-   - ML engineers
-   - AI researchers
+3. **progress.md**
+   - Development progress tracking
+   - Completed milestones
+   - Upcoming work items
+   - Known issues and blockers
 
-3. DevOps Engineers
-   - System integrators
-   - Pipeline maintainers
-   - Automation specialists
+4. **decisionLog.md**
+   - Architectural decisions
+   - Technical choices
+   - Implementation strategies
+   - Rationale for key decisions
 
-## Use Cases
-1. Documentation Migration
-   - Converting legacy docs to RAG-ready format
-   - Optimizing image assets
-   - Generating AI-ready metadata
-
-2. Content Enhancement
-   - Adding image descriptions
-   - Optimizing media for AI processing
-   - Enriching document context
-
-3. AI System Integration
-   - Preparing training data
-   - Building knowledge bases
-   - Automating content processing
+5. **systemPatterns.md**
+   - Code patterns and conventions
+   - Architecture patterns
+   - Implementation guidelines
+   - Best practices

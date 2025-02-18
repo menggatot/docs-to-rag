@@ -1,141 +1,134 @@
-# System Patterns: Docs to RAG Processor
+# System Patterns
 
-## Architecture Overview
-The system follows a modular architecture with clear separation of concerns:
+## Code Organization Patterns
 
-### Core Components
-1. MarkdownProcessor
-   - Main class handling file processing
-   - Manages worker threads
-   - Coordinates image processing
-   - Maintains processing statistics
-   - Handles vision model integration
+### Module Structure
+```
+docstorag.py             # Main entry point
+├── processors/          # Core processing modules
+│   ├── doc_processor   # Document processing logic
+│   ├── image_processor # Image handling and optimization
+│   └── metadata        # Metadata management
+├── integrations/       # External service integrations
+│   └── openai         # OpenAI API integration
+└── utils/             # Utility functions and helpers
+    ├── parallel       # Parallel processing utilities
+    └── logging        # Logging and monitoring
+```
 
-2. ProcessingStats
-   - Tracks processing metrics
-   - Maintains error lists
-   - Provides progress summaries
+### Implementation Patterns
 
-### Key Patterns
+#### Document Processing
+- Stream-based processing for memory efficiency
+- Chunk-based content splitting for RAG
+- Metadata preservation throughout pipeline
+- Error recovery and resumption capabilities
 
-1. Thread Pool Pattern
-   ```python
-   with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-       future_to_file = {executor.submit(self._process_file_safe, file_path): file_path}
-   ```
-   - Enables parallel processing
-   - Manages resource utilization
-   - Maintains processing order
+#### Image Handling
+- Progressive optimization strategy
+- Hash-based deduplication
+- Lazy loading for large sets
+- Format standardization pipeline
 
-2. Progress Tracking Pattern
-   ```python
-   with tqdm(total=len(mdx_files), desc="Processing files") as pbar:
-       for future in as_completed(future_to_file):
-           # Process and update progress
-   ```
-   - Real-time progress visualization
-   - Clear completion tracking
+#### Parallel Processing
+- Worker pool management
+- Queue-based task distribution
+- Progress tracking and reporting
+- Resource-aware scaling
 
-3. Error Handling Pattern
-   ```python
-   try:
-       # Processing logic
-   except Exception as e:
-       self.logger.error(f"Error in process_mdx_files: {str(e)}")
-       raise
-   ```
-   - Comprehensive error catching
-   - Detailed logging
-   - Clean error propagation
+#### API Integration
+- Rate limiting implementation
+- Retry mechanisms with backoff
+- Error handling and logging
+- Configuration management
 
-4. Rate Limiting Pattern
-    ```python
-    @dataclass
-    class RateLimiter:
-        rate: float  # tokens per second
-        capacity: float  # bucket size
-        
-        def acquire(self, tokens: float = 1.0) -> float:
-            # Token bucket algorithm implementation
-    ```
-    - Thread-safe token bucket algorithm
-    - Configurable rate and burst limits
-    - Dynamic rate adjustment support
-    - Concurrent request handling
+## Best Practices
 
-5. Smart Image Compression Pattern
-    ```python
-    def _optimize_image(self, image_path: Path) -> Optional[Path]:
-        # Progressive compression strategy
-        while True:
-            if quality > min_quality:
-                quality -= quality_step  # Try reducing quality first
-            else:
-                # Resort to resizing if quality reduction isn't enough
-                reduction_factor = (max_size_bytes / current_size) ** 0.5
-                img = resize_with_aspect_ratio(img, reduction_factor)
-    ```
-    - Progressive quality reduction
-    - Smart resize when needed
-    - Format conversion to JPEG
-    - Size limit enforcement (20MB)
+### Code Style
+- Use type hints for better maintainability
+- Implement comprehensive logging
+- Document public interfaces
+- Use descriptive variable names
 
-6. Vision Model Integration Pattern
-    ```python
-    def _generate_image_description(self, alt_text: str, image_path: str) -> str:
-        # Base64 encode image
-        base64_image = self._encode_image(image_path)
-        
-        # Vision API request with configurable model
-        response = self.client.chat.completions.create(
-            model=self.vision_model,
-            messages=[{
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": prompt},
-                    {"type": "image_url", "image_url": {
-                        "url": f"data:image/jpeg;base64,{base64_image}"
-                    }}
-                ]
-            }]
-        )
-    ```
-    - Configurable vision model
-    - Base64 image encoding
-    - Structured API requests
-    - Error handling and fallbacks
+### Error Handling
+- Implement graceful degradation
+- Provide detailed error messages
+- Log errors with context
+- Support recovery mechanisms
 
-## Data Flow
-1. Input
-   - MD/MDX files
-   - Images within documents
-   - Configuration parameters
-   - Vision model settings
+### Performance
+- Implement lazy loading where appropriate
+- Use generators for large datasets
+- Cache expensive operations
+- Monitor resource usage
 
-2. Processing
-   - File parsing
-   - Smart image compression
-   - Vision model analysis
-   - Content combination
+### Testing
+- Unit tests for core functionality
+- Integration tests for API interactions
+- Performance benchmarks
+- Error case coverage
 
-3. Output
-   - Processed markdown content
-   - Optimized images
-   - Image descriptions
-   - Processing statistics
+## Architecture Guidelines
 
-## Integration Points
-1. Vision API
-   - Image description generation
-   - Model configuration
-   - Base64 image handling
+### Component Design
+1. Single Responsibility Principle
+   - Each module handles one aspect of processing
+   - Clear interfaces between components
+   - Minimal coupling between modules
 
-2. Image Processing
-   - Smart compression
-   - Format conversion
-   - Quality optimization
+2. Configuration Management
+   - External configuration files
+   - Environment variable support
+   - Command-line interface
+   - Sensible defaults
 
-3. Filesystem
-   - Input file reading
-   - Media storage
-   - Output file writing
+3. Processing Pipeline
+   - Clear data flow
+   - Progress tracking
+   - Error handling at each stage
+   - Recovery points
+
+4. Resource Management
+   - Controlled resource allocation
+   - Proper cleanup
+   - Memory usage monitoring
+   - CPU utilization tracking
+
+### Integration Patterns
+
+#### OpenAI Integration
+- API key management
+- Model configuration
+- Request rate limiting
+- Response handling
+
+#### File System Integration
+- Safe file operations
+- Atomic writes
+- Directory management
+- Path sanitization
+
+## Development Workflow
+1. Feature Planning
+   - Document requirements
+   - Design interfaces
+   - Plan testing strategy
+   - Consider performance implications
+
+2. Implementation
+   - Follow established patterns
+   - Maintain consistency
+   - Document as you code
+   - Consider edge cases
+
+3. Testing
+   - Unit test coverage
+   - Integration testing
+   - Performance testing
+   - Error case validation
+
+4. Documentation
+   - Update API docs
+   - Add usage examples
+   - Document configurations
+   - Update README
