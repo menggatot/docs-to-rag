@@ -35,18 +35,14 @@ A Python utility designed to process Markdown (MD) and MDX files for use in Retr
    - Install all required dependencies
    - Guide you through the setup process
 
-3. Set up your OpenAI API key:
-   ```bash
-   export OPENAI_API_KEY='your-api-key'
-   ```
-
-4. Run the processor:
-   ```bash
-   python docstorag.py \
-       --docs-dir DOCS_DIRECTORY \
-       --media-dir media_storage \
-       --output processed_content.md
-   ```
+3. Run the processor:
+    ```bash
+    python docstorag.py \
+        --api-key YOUR_OPENAI_API_KEY \
+        --docs-dir DOCS_DIRECTORY \
+        --media-dir media_storage \
+        --output processed_content.md
+    ```
 
 ## Documentation
 
@@ -73,7 +69,11 @@ A Python utility designed to process Markdown (MD) and MDX files for use in Retr
 
 Basic usage with default settings:
 ```bash
-python docstorag.py --docs-dir ./my-docs --media-dir ./media --output processed.md
+python docstorag.py \
+    --api-key YOUR_OPENAI_API_KEY \
+    --docs-dir ./my-docs \
+    --media-dir ./media \
+    --output processed.md
 ```
 
 Advanced usage with all options:
